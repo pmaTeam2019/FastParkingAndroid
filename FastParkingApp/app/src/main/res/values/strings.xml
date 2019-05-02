@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FastParking</string>
+    <string name="home">Home</string>
+    <string name="reservations">Reservations</string>
+    <string name="maps">Maps</string>
+    <string name="settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_parking">ParkingActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+</resources>
