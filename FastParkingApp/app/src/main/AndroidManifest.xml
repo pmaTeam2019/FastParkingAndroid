@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.fastparkingapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--Permission Android-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--Permission Android-->
 
     <application
             android:allowBackup="true"
@@ -13,8 +18,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".viewcontrollers.activities.OwnerRegisterActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".viewcontrollers.activities.ReservationActivity"
+                android:label="@string/title_activity_reservation"
+                android:parentActivityName=".viewcontrollers.activities.ParkingActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.example.fastparkingapp.viewcontrollers.activities.ParkingActivity"/>
+        </activity>
+        <activity
+                android:name=".viewcontrollers.activities.OwnerRegisterActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".viewcontrollers.activities.RegisterActivity"
@@ -25,8 +40,9 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.example.fastparkingapp.viewcontrollers.activities.WelcomeActivity"/>
         </activity>
-        <activity android:name=".viewcontrollers.activities.OnboardingActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".viewcontrollers.activities.OnboardingActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".viewcontrollers.activities.LoginActivity"
@@ -38,6 +54,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.example.fastparkingapp.viewcontrollers.activities.WelcomeActivity"/>
@@ -62,6 +79,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!--Maps Android Key-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/mapsKey"/>
+        <!--Maps Android Key-->
+
+
+
     </application>
 
 </manifest>

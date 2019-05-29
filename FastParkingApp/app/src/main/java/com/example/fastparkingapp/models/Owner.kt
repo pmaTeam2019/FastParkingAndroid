@@ -12,7 +12,9 @@ data class Owner( val id:Int,
                   val birthday:String?,
                   val description:String?,
                   val email:String?,
-                  val password:String?){
+                  val password:String?,
+                  val latitude:Double,
+                  val longitude:Double){
     companion object {
         fun from(bundle:Bundle): Owner{
             return Owner(
@@ -25,7 +27,9 @@ data class Owner( val id:Int,
                 bundle.getString("birthday"),
                 bundle.getString("description"),
                 bundle.getString("email"),
-                bundle.getString("password")
+                bundle.getString("password"),
+                bundle.getDouble("latitude"),
+                bundle.getDouble("longitude")
             )
         }
     }
@@ -43,6 +47,8 @@ data class Owner( val id:Int,
             bundle.putString("description",description)
             bundle.putString("email",email)
             bundle.putString("password",password)
+            bundle.putDouble("latitude",latitude)
+            bundle.putDouble("longitude",longitude)
         }
         return bundle
     }

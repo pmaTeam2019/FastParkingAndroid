@@ -32,6 +32,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.google.android.gms:play-services-plus:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.5'
     implementation 'com.github.florent37:expansionpanel:1.2.2'
     implementation 'com.google.android.gms:play-services-location:16.0.0'

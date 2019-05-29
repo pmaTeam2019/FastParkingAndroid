@@ -10,4 +10,6 @@
     <string name="title_activity_parking">ParkingActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_reservation">ReservationActivity</string>
+    <string name="mapsKey">AIzaSyBvZ6dYN5dE6HfVl4_GxRwEMrsNERh6A3o</string>
 </resources>

@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +34,7 @@ class ParkingActivity : AppCompatActivity() {
     private lateinit var  pricesExpansionLayout:ExpansionLayout
     private lateinit var  pictureImageView: ANImageView
     private lateinit var addressSection: ConstraintLayout
+    private lateinit var reserveButton: Button
 
     //Location
     private lateinit var fusedLocationProviderClient:FusedLocationProviderClient
@@ -50,6 +52,8 @@ class ParkingActivity : AppCompatActivity() {
         parking = Owner.from(intent.extras)
         pictureImageView = findViewById(R.id.pictureStaticMap)
         addressSection = findViewById(R.id.contentAddress)
+        reserveButton = findViewById(R.id.reservationButton)
+
 
         addressTextView.text = parking.address
         descriptionTextView.text = parking.description
@@ -67,6 +71,11 @@ class ParkingActivity : AppCompatActivity() {
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
+        }
+
+        reserveButton.setOnClickListener{
+            val intent = Intent(it.context,ReservationActivity::class.java)
+            it.context.startActivity(intent)
         }
     }
 

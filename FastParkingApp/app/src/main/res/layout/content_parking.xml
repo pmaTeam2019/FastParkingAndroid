@@ -188,6 +188,7 @@
                 android:fontFamily="sans-serif-condensed"/>
 
         <LinearLayout
+                android:id="@+id/contentLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -208,8 +209,8 @@
                         android:background="#F8F9F9"
                         android:layout_height="48dp"
                         android:layout_width="match_parent"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
 
                     <ImageView
                             android:layout_centerVertical="true"
@@ -262,78 +263,21 @@
                 </LinearLayout>
 
             </com.github.florent37.expansionpanel.ExpansionLayout>
-
-            <com.github.florent37.expansionpanel.ExpansionHeader
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/sampleHeader"
-                    app:expansion_headerIndicator="@id/paymentHeaderIndicator"
-                    app:expansion_layout="@id/paymentExpansionLayout"
-                    app:expansion_toggleOnClick="true"
-                    app:expansion_headerIndicatorRotationExpanded="@android:integer/config_shortAnimTime">
-                <RelativeLayout
-                        android:background="#F8F9F9"
-                        android:layout_height="48dp"
-                        android:layout_width="match_parent"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
-
-                    <ImageView
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:src="@drawable/ic_payment_black_24dp"/>
-
-                    <TextView
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="120dp"
-                            android:layout_width="wrap_content"
-                            android:text="Payment methods"
-                            android:fontFamily="sans-serif-condensed"
-                            android:textStyle="bold"/>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                            android:adjustViewBounds="true"
-                            android:id="@+id/paymentHeaderIndicator"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_width="wrap_content"
-                            app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
-
-                </RelativeLayout>
-
-            </com.github.florent37.expansionpanel.ExpansionHeader>
-
-            <com.github.florent37.expansionpanel.ExpansionLayout
-                    android:id="@+id/paymentExpansionLayout"
-                    app:expansion_expanded="false"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-
-                <LinearLayout
-                        android:id="@+id/paymentContainer"
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        android:orientation="vertical">
-
-                    <TextView
-                            android:background="#EEE"
-                            android:gravity="center"
-                            android:layout_height="100dp"
-                            android:layout_width="match_parent"
-                            android:text="content" />
-
-                </LinearLayout>
-
-            </com.github.florent37.expansionpanel.ExpansionLayout>
-
-
         </LinearLayout>
 
-
+        <Button
+                android:id="@+id/reservationButton"
+                android:layout_width="304dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/contentLinearLayout"
+                android:background="@color/colorPrimary"
+                android:text="RESERVE"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
