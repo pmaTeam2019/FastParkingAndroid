@@ -26,7 +26,6 @@ class ReservationsAdapter(var reservations:ArrayList<Reservation>,val context: C
         }
 
         fun bindTo(reservation:Reservation){
-
         }
     }
 
