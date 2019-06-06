@@ -163,7 +163,7 @@ class MapFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                         mMap.addPolyline(PolylineOptions().addAll(path[i]).color(Color.BLUE))
                     }
                 }
-
+                // super comment
                 override fun onError(anError: ANError?) {
                     Log.d("FastParking","Error: ${anError?.message}")
                 }
