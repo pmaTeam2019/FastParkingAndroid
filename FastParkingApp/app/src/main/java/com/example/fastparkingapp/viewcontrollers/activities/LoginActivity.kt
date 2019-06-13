@@ -1,6 +1,7 @@
 package com.example.fastparkingapp.viewcontrollers.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
@@ -10,6 +11,7 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
 import com.example.fastparkingapp.R
+import com.example.fastparkingapp.models.Customer
 import com.example.fastparkingapp.models.Login
 import com.example.fastparkingapp.models.LoginResponse
 import com.example.fastparkingapp.networking.FastParkingApi
@@ -21,6 +23,8 @@ import kotlinx.android.synthetic.main.content_login.*
 class LoginActivity : AppCompatActivity() {
 
     lateinit var login : Login
+    private lateinit var sharePref: SharedPreferences
+    val PREFS_FILENAME:String = "com.example.fastparkingapp.prefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onResponse(response: LoginResponse?) {
                         if(response?.status == "ok"){
                             Log.d("FastParking","Login successful")
+                            saveUserToSharePreferences(response.customer)
                             val intent = Intent(it.context,OnboardingActivity::class.java)
                             it.context.startActivity(intent)
                         }else{
@@ -57,6 +62,16 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                 })
+        }
+    }
+
+
+    fun saveUserToSharePreferences(customer: Customer){
+        sharePref = getSharedPreferences(PREFS_FILENAME,0)
+        with(sharePref.edit()){
+            putString("userId",customer.id.toString())
+            putString("username",customer.fullName)
+            apply()
         }
     }
 }

@@ -8,7 +8,9 @@ data class Reservation(val id:Int,
                        val startReservationDate:String,
                        val endReservationDate:String,
                        val isActive:Boolean,
-                       val rating:Double){
+                       val rating:Double,
+                       val owner:Owner,
+                       val customer:Customer){
     companion object {
         fun from(bundle: Bundle):Reservation{
             return Reservation(
@@ -18,7 +20,9 @@ data class Reservation(val id:Int,
                 bundle.getString("startReservationDate"),
                 bundle.getString("endReservationDate"),
                 bundle.getBoolean("isActive"),
-                bundle.getDouble("rating")
+                bundle.getDouble("rating"),
+                Owner.from(bundle.getBundle("owner")),
+                Customer.from(bundle.getBundle("customer"))
             )
         }
     }
@@ -33,6 +37,8 @@ data class Reservation(val id:Int,
             putString("endReservationDate",endReservationDate)
             putBoolean("isActive",isActive)
             putDouble("rating",rating)
+            putBundle("owner",owner.toBundle())
+            putBundle("customer",customer.toBundle())
         }
         return bundle
     }

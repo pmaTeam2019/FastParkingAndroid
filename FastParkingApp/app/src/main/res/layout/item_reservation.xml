@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/reservationContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/reservationCardView"
             android:layout_width="match_parent"
@@ -11,7 +12,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:cardElevation="1dp">
+            app:cardElevation="6dp">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -19,7 +20,6 @@
                     android:id="@+id/ownerImageView"
                     android:layout_width="120dp"
                     android:layout_height="160dp"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:scaleType="fitXY"
@@ -33,22 +33,22 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:text="Parking Company:"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:textStyle="bold"/>
             <TextView
                     android:id="@+id/parkingCompanyTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/ownerImageView"
                     app:layout_constraintTop_toBottomOf="@id/parkingCompanyLabel"
                     android:text="MockText"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:fontFamily="sans-serif-condensed"/>
             <ImageView
                     android:id="@+id/entryDateIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="21dp"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/ownerImageView"
                     app:layout_constraintTop_toBottomOf="@id/parkingCompanyTextView"
@@ -59,25 +59,27 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/entryDateIcon"
-                    app:layout_constraintTop_toBottomOf="@id/parkingCompanyTextView"
+                    app:layout_constraintTop_toTopOf="@id/entryDateIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/entryDateIcon"
                     android:text="Entry:"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:fontFamily="sans-serif-condensed"
                     android:textStyle="bold"/>
             <TextView
                     android:id="@+id/entryDateTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="171dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/entryDateLabel"
-                    app:layout_constraintTop_toBottomOf="@id/parkingCompanyTextView"
+                    app:layout_constraintTop_toTopOf="@id/entryDateLabel"
+                    app:layout_constraintBottom_toBottomOf="@id/entryDateLabel"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:text="30 mar. 2019 12:30"/>
             <ImageView
                     android:id="@+id/exitDateIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="21dp"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/ownerImageView"
                     app:layout_constraintTop_toBottomOf="@id/entryDateIcon"
@@ -88,20 +90,22 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/exitDateIcon"
-                    app:layout_constraintTop_toBottomOf="@id/entryDateLabel"
+                    app:layout_constraintTop_toTopOf="@id/exitDateIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/exitDateIcon"
                     android:text="Exit:"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" android:layout_marginTop="24dp" android:layout_marginStart="8dp"/>
             <TextView
                     android:id="@+id/exitDateTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="171dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/exitDateLabel"
-                    app:layout_constraintTop_toBottomOf="@id/entryDateTextView"
+                    app:layout_constraintTop_toTopOf="@id/exitDateLabel"
+                    app:layout_constraintBottom_toBottomOf="@id/exitDateLabel"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:text="30 mar. 2019 12:30"/>
             <TextView
                     android:id="@+id/statusLabel"
@@ -111,7 +115,7 @@
                     app:layout_constraintStart_toEndOf="@id/ownerImageView"
                     app:layout_constraintTop_toBottomOf="@id/exitDateIcon"
                     android:text="Status:"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-condensed"/>
             <TextView
@@ -121,7 +125,7 @@
                     android:layout_margin="8dp"
                     app:layout_constraintStart_toEndOf="@id/statusLabel"
                     app:layout_constraintTop_toBottomOf="@id/exitDateIcon"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:fontFamily="sans-serif-condensed"
                     android:text="30 min"/>
 

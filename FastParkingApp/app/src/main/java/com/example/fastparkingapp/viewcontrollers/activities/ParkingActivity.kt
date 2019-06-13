@@ -59,15 +59,15 @@ class ParkingActivity : AppCompatActivity() {
         descriptionTextView.text = parking.description
         fullNameTextView.text = parking.fullName
         slotTextView.text = "Hay ${parking.slotsQuantity} estacionamientos disponibles"
-        distanceTextView.text = "Del estacionamieto a tu destino son 20 minutos"
+        distanceTextView.text = "Del estacionamieto a tu destino son ${parking.distance}"
         scheduleTextView.text = "Lun a Dom: 8.00 a 22:00 hrs."
         with(pictureImageView){
-            setImageUrl("https://www.dianellaplaza.com.au/media/4977/parkinggeneric.jpg.ashx?width=800&height=520&preset=default")
+            setImageUrl(parking.imageUrl)
             setDefaultImageResId(R.drawable.ic_launcher_background)
             setErrorImageResId(R.drawable.ic_launcher_background)
         }
         addressSection.setOnClickListener{
-            val gmmIntentUri = Uri.parse("http://maps.google.com/maps?saddr=-12.104693,-76.963387&daddr=-12.106081,-76.974027")
+            val gmmIntentUri = Uri.parse("http://maps.google.com/maps?saddr=-12.104693,-76.963387&daddr=${parking.latitude},${parking.longitude}")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
@@ -75,7 +75,7 @@ class ParkingActivity : AppCompatActivity() {
 
         reserveButton.setOnClickListener{
             val intent = Intent(it.context,ReservationActivity::class.java)
-            it.context.startActivity(intent)
+            it.context.startActivity(intent.putExtras(parking.toBundle()))
         }
     }
 

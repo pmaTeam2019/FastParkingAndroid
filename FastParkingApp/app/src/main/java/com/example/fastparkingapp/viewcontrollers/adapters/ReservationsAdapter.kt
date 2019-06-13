@@ -10,6 +10,10 @@ import com.androidnetworking.widget.ANImageView
 import com.example.fastparkingapp.R
 import com.example.fastparkingapp.models.Reservation
 import kotlinx.android.synthetic.main.item_reservation.view.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ReservationsAdapter(var reservations:ArrayList<Reservation>,val context: Context):RecyclerView.Adapter<ReservationsAdapter.ViewHolder>(){
     class ViewHolder(reservationView: View):RecyclerView.ViewHolder(reservationView){
@@ -26,6 +30,22 @@ class ReservationsAdapter(var reservations:ArrayList<Reservation>,val context: C
         }
 
         fun bindTo(reservation:Reservation){
+            var inputFormatter : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+            var outputFormatter: SimpleDateFormat = SimpleDateFormat("d MMM yyy HH:mm", Locale.getDefault())
+            var startDate:Date = inputFormatter.parse(reservation.startReservationDate)
+            var endDate:Date = inputFormatter.parse(reservation.endReservationDate)
+            var startDateFormat:String = outputFormatter.format(startDate)
+            var endDateFormat:String = outputFormatter.format(endDate)
+
+
+            with(ownerImageView){
+                setImageUrl(reservation.owner.imageUrl)
+                setErrorImageResId(R.drawable.ic_launcher_background)
+                setDefaultImageResId(R.drawable.ic_launcher_background)
+            }
+            parkingCompanyTextView.text = reservation.owner.fullName
+            entryDateTextView.text = startDateFormat
+            exitDateTextView.text = endDateFormat
         }
     }
 

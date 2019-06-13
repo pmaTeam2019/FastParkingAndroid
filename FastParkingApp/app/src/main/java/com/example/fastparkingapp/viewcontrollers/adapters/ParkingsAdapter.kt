@@ -40,10 +40,15 @@ class ParkingsAdapter(var parkins: ArrayList<Owner>,val context:Context): Recycl
         }
 
         fun bindTo(parking:Owner){
+            var imageUrl: String = ""
             fullnameTextView.text = parking.fullName
             addressTextView.text = parking.address
             priceTextView.text = "1,50 $/h"
-            distanceTextView.text = "1,2 km"
+            if(parking.distance == null){
+                distanceTextView.text = ""
+            }else{
+                distanceTextView.text = parking.distance
+            }
             if(parking.isAvailable){
                 statusImageView.setImageResource(R.drawable.status_available_24dp)
                 statusTextView.text = "Available"
@@ -51,8 +56,12 @@ class ParkingsAdapter(var parkins: ArrayList<Owner>,val context:Context): Recycl
                 statusImageView.setImageResource(R.drawable.status_unavailable_24dp)
                 statusTextView.text = "Unavailable"
             }
+            if(parking.imageUrl == null){
+                parking.imageUrl = "https://www.dianellaplaza.com.au/media/4977/parkinggeneric.jpg.ashx?width=800&height=520&preset=default"
+            }
+
             with(pictureCardView){
-                setImageUrl("https://www.dianellaplaza.com.au/media/4977/parkinggeneric.jpg.ashx?width=800&height=520&preset=default")
+                setImageUrl(parking.imageUrl)
                 setDefaultImageResId(R.drawable.ic_launcher_background)
                 setErrorImageResId(R.drawable.ic_launcher_background)
             }

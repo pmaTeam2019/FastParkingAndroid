@@ -2,14 +2,22 @@ package com.example.fastparkingapp.viewcontrollers.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.common.Priority
+import com.androidnetworking.widget.ANImageView
 import com.example.fastparkingapp.R
+import com.example.fastparkingapp.models.Owner
 import com.google.android.material.card.MaterialCardView
+import com.google.gson.JsonObject
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment
 
 import kotlinx.android.synthetic.main.activity_reservation.*
+import org.json.JSONObject
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,6 +33,11 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var contentExit:MaterialCardView
     private lateinit var entryDateTimeTextView:TextView
     private lateinit var exitDateTimeTextView:TextView
+    private lateinit var parking: Owner
+    private lateinit var logoImageView:ANImageView
+    private lateinit var fullNameTextView:TextView
+    private lateinit var statusTextView:TextView
+    private lateinit var confirmReserveButton:Button
 
 
     val entryOnButtonWithNeutralClickListener = object : SwitchDateTimeDialogFragment.OnButtonWithNeutralClickListener{
@@ -63,9 +76,37 @@ class ReservationActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         contentEntry = findViewById(R.id.contentEntry)
         contentExit = findViewById(R.id.contentExit)
+        logoImageView = findViewById(R.id.logoImageView)
+        fullNameTextView = findViewById(R.id.fullNameTextView)
+        statusTextView = findViewById(R.id.statusTextView)
         entryDateTimeTextView = findViewById(R.id.entryDateTime)
         exitDateTimeTextView = findViewById(R.id.exitDateTime)
+        parking = Owner.from(intent.extras)
+        confirmReserveButton = findViewById(R.id.ConfirmReservationButton)
 
+        with(logoImageView){
+            setImageUrl(parking.imageUrl)
+            setErrorImageResId(R.drawable.ic_launcher_background)
+            setDefaultImageResId(R.drawable.ic_launcher_background)
+        }
+        if(parking.isAvailable){
+            statusTextView.text = "Available"
+        }else{statusTextView.text = "Unavailable"}
+
+        fullNameTextView.text = parking.fullName
+
+
+        confirmReserveButton.setOnClickListener{
+
+
+
+            val reservationJsonObject = JSONObject()
+            reservationJsonObject.put("SlotId","1")
+            reservationJsonObject.put("CustomerId","1")
+            reservationJsonObject.put("OwnerId","1")
+            reservationJsonObject.put("StartReservationDate","2019-06-13T12:30")
+            reservationJsonObject.put("EndReservationDate","2019-03-15T11:20")
+        }
 
         //setUp entrySwitchDateTime
         if(entrySwitchDateTime == null){

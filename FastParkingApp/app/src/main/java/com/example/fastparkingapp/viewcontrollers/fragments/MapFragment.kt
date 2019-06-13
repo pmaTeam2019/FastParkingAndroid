@@ -25,6 +25,7 @@ import com.example.fastparkingapp.models.OwnerResponse
 import com.example.fastparkingapp.networking.FastParkingApi
 import com.example.fastparkingapp.viewcontrollers.activities.MainActivity
 import com.example.fastparkingapp.viewcontrollers.activities.OwnerRegisterActivity
+import com.example.fastparkingapp.viewcontrollers.adapters.CustomInfoWindowAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -55,9 +56,10 @@ class MapFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMarkerClickListen
     private var owners = ArrayList<Owner>()
     private var polylines =  ArrayList<Polyline>()
     private lateinit var currentLatLong:LatLng
+    var lines: Polyline? = null
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,14 +77,15 @@ class MapFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMarkerClickListen
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this.context!!))
         setUpMap()
-        getOwners()
         showMarkers(owners)
         mMap.setOnMarkerClickListener(this)
     }
 
 
     override fun onMarkerClick(p0: Marker): Boolean {
+        p0.showInfoWindow()
         Log.d("FastLocation",p0?.position.toString())
         showRoute(p0.position)
         return true
@@ -104,45 +107,47 @@ class MapFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                 Log.d("FastLocation",currentLatLong.toString())
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLong,13f))
             }
+            var getOwnersEndPoint = "${FastParkingApi.getOwnersEndPoint}?latitude=${currentLatLong.latitude}&longitude=${currentLatLong.longitude}"
+            AndroidNetworking.get(getOwnersEndPoint)
+                .setPriority((Priority.LOW))
+                .build()
+                .getAsObject(OwnerResponse::class.java, object : ParsedRequestListener<OwnerResponse>{
+                    override fun onResponse(response: OwnerResponse?) {
+                        if(response?.status == "ok"){
+                            owners = response.owners
+                            showMarkers(owners)
+                            Log.d("FastParking",owners.toString())
+                        }
+                    }
+
+                    override fun onError(anError: ANError?) {
+                        Log.d("FastParking", "Error: ${anError?.message.toString()}")
+                    }
+                })
         }
     }
 
-    private fun getOwners(){
-        AndroidNetworking.get(FastParkingApi.getOwnersEndPoint)
-            .setPriority((Priority.LOW))
-            .build()
-            .getAsObject(OwnerResponse::class.java, object : ParsedRequestListener<OwnerResponse>{
-                override fun onResponse(response: OwnerResponse?) {
-                    if(response?.status == "ok"){
-                        owners = response.owners
-                        showMarkers(owners)
-                        Log.d("FastParking",owners.toString())
-                    }
-                }
-
-                override fun onError(anError: ANError?) {
-                    Log.d("FastParking", "Error: ${anError?.message.toString()}")
-                }
-            })
-    }
 
     private fun showMarkers(owners:ArrayList<Owner>){
         for(item in owners){
             val ownerLatLong = LatLng(item.latitude,item.longitude)
             Log.d("LATLONG",ownerLatLong.toString())
-            mMap.addMarker(MarkerOptions().position(ownerLatLong).title(item.fullName).icon(BitmapDescriptorFactory
-                .fromResource(R.drawable.parking_marker)).zIndex(item.id.toFloat()))
+            mMap.addMarker(MarkerOptions().position(ownerLatLong).title(item.fullName).zIndex(item.id.toFloat()))
         }
     }
 
 
     private fun showRoute(markerPosition:LatLng){
+        lines?.remove()
         val path:MutableList<List<LatLng>> = ArrayList()
         val origin:String = "origin=-12.103824,-76.9626864"
         val destination:String = "destination=${markerPosition.latitude},${markerPosition.longitude}"
         val mode: String = "Driving"
         val key:String = "AIzaSyBUZyqXsOEXWGzYxpJpICi-vVy5vVOIM3A"
         val urlDirections = "https://maps.googleapis.com/maps/api/directions/json?$origin&$destination&mode=$mode&key=$key"
+        val options = PolylineOptions()
+        options.color(R.color.colorPrimary)
+        options.width(5f)
 
         Log.d("FastParkig","URL:$urlDirections")
         AndroidNetworking.get(urlDirections)
@@ -160,8 +165,11 @@ class MapFragment : Fragment(),OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                         path.add(PolyUtil.decode(points))
                     }
                     for (i in 0 until path.size){
-                        mMap.addPolyline(PolylineOptions().addAll(path[i]).color(Color.BLUE))
+                        options.addAll(path[i])
+                       //mMap.addPolyline(PolylineOptions().addAll(path[i]).color(R.color.colorPrimaryDark))
                     }
+                   lines = mMap.addPolyline(options)
+                    path.clear()
                 }
                 // super comment
                 override fun onError(anError: ANError?) {

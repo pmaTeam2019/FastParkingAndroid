@@ -9,17 +9,60 @@
         tools:showIn="@layout/activity_reservation"
         tools:context=".viewcontrollers.activities.ReservationActivity">
 
+        <com.androidnetworking.widget.ANImageView
+                android:id="@+id/logoImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher"/>
+    <TextView
+            android:id="@+id/fullNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/logoImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="MockTex"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#000000"/>
+    <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/logoImageView"
+            app:layout_constraintTop_toBottomOf="@id/fullNameTextView"
+            android:text="MockText"
+            android:fontFamily="sans-serif-condensed"/>
+        <TextView
+                android:id="@+id/priceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/logoImageView"
+                android:text="S/. 12.50"
+                android:textStyle="bold"
+                android:textSize="35dp"
+                android:textColor="#000000"
+                android:fontFamily="sans-serif-condensed"/>
+
         <TextView
                 android:id="@+id/titleLayoutTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/priceTextView"
                 android:text="Select the dates of your reservation"
                 android:fontFamily="sans-serif-condensed"
                 android:textSize="20dp"
                 android:textStyle="bold"/>
+
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/contentEntry"
             android:layout_width="match_parent"
@@ -116,4 +159,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <Button
+            android:id="@+id/ConfirmReservationButton"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contentExit"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="CONFIRM RESERVE"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:background="@color/colorPrimary"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

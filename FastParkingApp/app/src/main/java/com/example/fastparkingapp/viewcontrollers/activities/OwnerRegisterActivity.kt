@@ -53,6 +53,8 @@ class OwnerRegisterActivity : AppCompatActivity() {
             ownerJsonObject.put("description",descriptionTextView.text)
             ownerJsonObject.put("email",username)
             ownerJsonObject.put("password",password)
+            ownerJsonObject.put("latitude","-12.041572")
+            ownerJsonObject.put("longitude","-77.03382")
 
             Log.d("FastParking",ownerJsonObject.toString())
             AndroidNetworking.post(FastParkingApi.getOwnersEndPoint)
