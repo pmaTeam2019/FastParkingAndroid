@@ -62,6 +62,7 @@ class ReservationFragment : Fragment() {
             .getAsObject(ReservationResponse::class.java, object:ParsedRequestListener<ReservationResponse>{
                 override fun onResponse(response: ReservationResponse?) {
                     reservations = response!!.reservations
+                    reservations.reverse()
                     reservationAdapter.reservations = reservations
                     reservationAdapter.notifyDataSetChanged()
                     Log.d("ReservationFragment","Result: ${response.reservations.toString()}")

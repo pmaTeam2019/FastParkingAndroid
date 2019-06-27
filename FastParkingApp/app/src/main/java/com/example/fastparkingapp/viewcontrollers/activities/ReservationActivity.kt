@@ -1,25 +1,25 @@
 package com.example.fastparkingapp.viewcontrollers.activities
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
 import com.androidnetworking.widget.ANImageView
 import com.example.fastparkingapp.R
 import com.example.fastparkingapp.models.Owner
+import com.example.fastparkingapp.models.Reservation
 import com.google.android.material.card.MaterialCardView
-import com.google.gson.JsonObject
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment
 
 import kotlinx.android.synthetic.main.activity_reservation.*
 import org.json.JSONObject
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ReservationActivity : AppCompatActivity() {
     val simpleDateFormat: SimpleDateFormat = SimpleDateFormat("d MMM yyy HH:mm", Locale.getDefault())
@@ -37,11 +37,18 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var logoImageView:ANImageView
     private lateinit var fullNameTextView:TextView
     private lateinit var statusTextView:TextView
+    private lateinit var priceTextView: TextView
     private lateinit var confirmReserveButton:Button
+    private var entryDate = Date()
+    private var exitDate = Date()
+    private lateinit var sharePref: SharedPreferences
+    val PREFS_FILENAME:String = "com.example.fastparkingapp.prefs"
+    var totalAmount:Double = 0.0
 
 
     val entryOnButtonWithNeutralClickListener = object : SwitchDateTimeDialogFragment.OnButtonWithNeutralClickListener{
         override fun onPositiveButtonClick(date: Date?) {
+            entryDate = date!!
             entryDateTimeTextView.text =simpleDateFormat.format(date)
         }
 
@@ -49,6 +56,7 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         override fun onNegativeButtonClick(date: Date?) {
+            entryDate = date!!
             entryDateTimeTextView.text = ""
         }
 
@@ -56,13 +64,22 @@ class ReservationActivity : AppCompatActivity() {
 
     val exitOnButtonWithNeutralClickListener = object : SwitchDateTimeDialogFragment.OnButtonWithNeutralClickListener{
         override fun onPositiveButtonClick(date: Date?) {
+            exitDate = date!!
             exitDateTimeTextView.text = simpleDateFormat.format(date)
+            var diffInMillisec:Long = exitDate.time - entryDate.time
+            var diffInHours:Long = TimeUnit.MILLISECONDS.toHours(diffInMillisec)
+            totalAmount = diffInHours* parking.price!!
+            Log.d("ReservationActivity","Price = ${park ing.price}")
+            priceTextView.text = "S/. ${totalAmount}"
+
+            Log.d("ReservationActivity","DiffDates ${diffInHours}")
         }
 
         override fun onNeutralButtonClick(date: Date?) {
         }
 
         override fun onNegativeButtonClick(date: Date?) {
+            exitDate = date!!
             exitDateTimeTextView.text = ""
         }
 
@@ -78,34 +95,32 @@ class ReservationActivity : AppCompatActivity() {
         contentExit = findViewById(R.id.contentExit)
         logoImageView = findViewById(R.id.logoImageView)
         fullNameTextView = findViewById(R.id.fullNameTextView)
-        statusTextView = findViewById(R.id.statusTextView)
         entryDateTimeTextView = findViewById(R.id.entryDateTime)
         exitDateTimeTextView = findViewById(R.id.exitDateTime)
         parking = Owner.from(intent.extras)
+        priceTextView = findViewById(R.id.priceTextView)
         confirmReserveButton = findViewById(R.id.ConfirmReservationButton)
-
+        sharePref = this.getSharedPreferences(PREFS_FILENAME,0)
         with(logoImageView){
             setImageUrl(parking.imageUrl)
             setErrorImageResId(R.drawable.ic_launcher_background)
             setDefaultImageResId(R.drawable.ic_launcher_background)
         }
-        if(parking.isAvailable){
-            statusTextView.text = "Available"
-        }else{statusTextView.text = "Unavailable"}
+
+
 
         fullNameTextView.text = parking.fullName
 
 
         confirmReserveButton.setOnClickListener{
+            val userId:Int = sharePref.getString("userId","0").toInt()
+            val owner = Owner(parking.id,parking.fullName,parking.address,parking.slotsQuantity,parking.isAvailable,parking.ruc,parking.birthday,parking.description,
+                parking.email,parking.password,parking.latitude,parking.longitude,parking.imageUrl,parking.distance,parking.duration,parking.rating,parking.price)
+            Log.d("ReservationActivity","imagen vacio? = ${owner.toString()}")
 
-
-
-            val reservationJsonObject = JSONObject()
-            reservationJsonObject.put("SlotId","1")
-            reservationJsonObject.put("CustomerId","1")
-            reservationJsonObject.put("OwnerId","1")
-            reservationJsonObject.put("StartReservationDate","2019-06-13T12:30")
-            reservationJsonObject.put("EndReservationDate","2019-03-15T11:20")
+            val reservation = Reservation(0,userId,owner.id,"2019-07-27T11:30","2019-07-27T12:30",true,0.0,totalAmount,owner)
+            val intent = Intent(this,PaymentActivity::class.java)
+            this.startActivity(intent.putExtras(reservation.toBundle()))
         }
 
         //setUp entrySwitchDateTime
@@ -159,21 +174,23 @@ class ReservationActivity : AppCompatActivity() {
         //contentEntry OnClickListener
         contentEntry.setOnClickListener{
             entrySwitchDateTime?.startAtCalendarView()
-            entrySwitchDateTime?.setDefaultDateTime(GregorianCalendar(2019,Calendar.MAY,30,15,20).time)
+            entrySwitchDateTime?.setDefaultDateTime(GregorianCalendar(2019,Calendar.JUNE,27,11,40).time)
             entrySwitchDateTime?.show(supportFragmentManager,TAG_DATETIME_FRAGMENT)
         }
 
         //contentExit OnClickListener
         contentExit.setOnClickListener{
-            exitSwitchDateTime?.startAtCalendarView()
-            exitSwitchDateTime?.setDefaultDateTime(GregorianCalendar(2019,Calendar.MAY,30,15,20).time)
-            exitSwitchDateTime?.show(supportFragmentManager,TAG_DATETIME_FRAGMENT)
+            if(entryDateTimeTextView.text == "Choose your entry date" || entryDateTimeTextView.text === ""){
+                Toast.makeText(this,"Please Choose Entry Date",Toast.LENGTH_SHORT).show()
+            }else{
+                exitSwitchDateTime?.startAtCalendarView()
+                exitSwitchDateTime?.setDefaultDateTime(GregorianCalendar(2019,Calendar.JUNE,27,11,40).time)
+                exitSwitchDateTime?.show(supportFragmentManager,TAG_DATETIME_FRAGMENT)
+            }
         }
 
         entrySwitchDateTime?.setOnButtonClickListener(entryOnButtonWithNeutralClickListener)
         exitSwitchDateTime?.setOnButtonClickListener(exitOnButtonWithNeutralClickListener)
 
     }
-
-
 }

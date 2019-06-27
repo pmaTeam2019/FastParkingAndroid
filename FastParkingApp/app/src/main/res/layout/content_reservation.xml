@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:showIn="@layout/activity_reservation"
         tools:context=".viewcontrollers.activities.ReservationActivity">
 
@@ -15,6 +15,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="8dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher"/>
@@ -23,29 +24,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/logoImageView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoImageView"
             android:text="MockTex"
             android:textStyle="bold"
             android:fontFamily="sans-serif-condensed"
             android:textColor="#000000"/>
-    <TextView
-            android:id="@+id/statusTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/logoImageView"
-            app:layout_constraintTop_toBottomOf="@id/fullNameTextView"
-            android:text="MockText"
-            android:fontFamily="sans-serif-condensed"/>
         <TextView
                 android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/logoImageView"
-                android:text="S/. 12.50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fullNameTextView"
+                android:text="S/. 00.00"
                 android:textStyle="bold"
                 android:textSize="35dp"
                 android:textColor="#000000"
@@ -105,9 +99,9 @@
                     android:layout_marginStart="32dp"
                     app:layout_constraintStart_toEndOf="@id/entryLabel"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="MockText"
+                    android:text="Choose your entry date"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="20dp"/>
+                    android:textSize="15dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
@@ -153,25 +147,25 @@
                     android:layout_marginStart="32dp"
                     app:layout_constraintStart_toEndOf="@id/exitLabel"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="MockText"
+                    android:text="Choose your departure date"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="20dp"/>
+                    android:textSize="15dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <Button
             android:id="@+id/ConfirmReservationButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_marginTop="20dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_height="wrap_content"
             android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contentExit"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="CONFIRM RESERVE"
+            app:layout_constraintTop_toBottomOf="@id/contentExit"
+            android:text="RESERVE"
             android:textColor="#ffffff"
             android:textSize="20dp"
             android:fontFamily="sans-serif-condensed"

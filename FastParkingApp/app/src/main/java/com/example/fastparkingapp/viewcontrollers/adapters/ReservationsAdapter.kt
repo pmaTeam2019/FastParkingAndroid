@@ -39,11 +39,11 @@ class ReservationsAdapter(var reservations:ArrayList<Reservation>,val context: C
 
 
             with(ownerImageView){
-                setImageUrl(reservation.owner.imageUrl)
+                setImageUrl(reservation.owner?.imageUrl)
                 setErrorImageResId(R.drawable.ic_launcher_background)
                 setDefaultImageResId(R.drawable.ic_launcher_background)
             }
-            parkingCompanyTextView.text = reservation.owner.fullName
+            parkingCompanyTextView.text = reservation.owner?.fullName
             entryDateTextView.text = startDateFormat
             exitDateTextView.text = endDateFormat
         }

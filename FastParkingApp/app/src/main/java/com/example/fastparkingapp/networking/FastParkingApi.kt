@@ -11,6 +11,6 @@ class FastParkingApi(){
         //post endpoints
         val authentication = "$baseUrl/login/authenticate"
         val postCustomer = "$baseUrl/customers"
-
+        fun postReserve(customerId:Int):String{return "$baseUrl/customers/${customerId}/reservations"}
     }
 }

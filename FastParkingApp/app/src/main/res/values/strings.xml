@@ -12,4 +12,10 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_reservation">ReservationActivity</string>
     <string name="mapsKey">AIzaSyBvZ6dYN5dE6HfVl4_GxRwEMrsNERh6A3o</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">axromr0zi6XJ9YvwEGhCqbDk7dprOgMGZmgEEVe1</string>
+    <string name="back4app_client_key">sAQ2jwHo4I1KRaM54uWS62W6y9aOAO6DObiUDVht</string>
+    <string name="title_activity_payment">PaymentActivity</string>
 </resources>

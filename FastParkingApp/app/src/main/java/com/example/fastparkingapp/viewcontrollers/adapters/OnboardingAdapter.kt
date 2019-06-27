@@ -1,14 +1,11 @@
 package com.example.fastparkingapp.viewcontrollers.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.fastparkingapp.R
 
@@ -18,21 +15,18 @@ class OnboardingAdapter: PagerAdapter {
     lateinit var layoutInflater:LayoutInflater
     val slideImages : IntArray = intArrayOf(
         R.drawable.garage,
-        R.drawable.payment,
-        R.drawable.garage
+        R.drawable.shield,
+        R.drawable.payment
     )
     val slideHeading: Array<String> = arrayOf(
-        "FIND CAR PARKING",
-        "ONLINE PAYMENT",
-        "FIND CAR PARKING"
+        "SEARCH FAST AND SIMPLE",
+        "SECURITY BEFORE EVERYTHING",
+        "PAY FAST AND EASY"
     )
     val slideDescription: Array<String> = arrayOf(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+        " Find your parking space at any time in a quick and easy way",
+        "FastParking has security standards so you can search and publish parking spaces with total confidence",
+        "Pay online with any available credit card. FastParking will make the payment to the owners of parking quickly and safely."
     )
 
     constructor(context:Context){

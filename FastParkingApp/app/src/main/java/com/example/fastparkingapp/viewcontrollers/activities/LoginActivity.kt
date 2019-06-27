@@ -68,9 +68,12 @@ class LoginActivity : AppCompatActivity() {
 
     fun saveUserToSharePreferences(customer: Customer){
         sharePref = getSharedPreferences(PREFS_FILENAME,0)
+        val username:String = "${customer.firstName} ${customer.lastName}"
         with(sharePref.edit()){
             putString("userId",customer.id.toString())
-            putString("username",customer.fullName)
+            putString("username",customer.fullName.toString())
+            putString("email",username.toString())
+            putString("address",customer.address.toString())
             apply()
         }
     }

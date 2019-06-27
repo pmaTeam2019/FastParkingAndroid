@@ -10,7 +10,6 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.example.fastparkingapp.FastParkingApplication
 import com.example.fastparkingapp.R
 import com.example.fastparkingapp.networking.FastParkingApi
 import com.google.android.gms.maps.GoogleMap

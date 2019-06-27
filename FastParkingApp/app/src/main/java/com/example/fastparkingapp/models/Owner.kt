@@ -15,10 +15,11 @@ data class Owner( val id:Int,
                   val password:String?,
                   val latitude:Double,
                   val longitude:Double,
-                  var imageUrl:String,
-                  val distance:String,
-                  val duration:String,
-                  val rating:Double){
+                  var imageUrl:String?,
+                  val distance:String?,
+                  val duration:String?,
+                  val rating:Double?,
+                  val price:Double?){
     companion object {
         fun from(bundle:Bundle): Owner{
             return Owner(
@@ -37,7 +38,8 @@ data class Owner( val id:Int,
                 bundle.getString("imageUrl"),
                 bundle.getString("distance"),
                 bundle.getString("duration"),
-                bundle.getDouble("rating")
+                bundle.getDouble("rating"),
+                bundle.getDouble("price")
             )
         }
     }
@@ -60,7 +62,8 @@ data class Owner( val id:Int,
             bundle.putString("imageUrl",imageUrl)
             bundle.putString("distance",distance)
             bundle.putString("duration",duration)
-            bundle.putDouble("rating",rating)
+            bundle.putDouble("rating",rating!!)
+            bundle.putDouble("price",price!!)
         }
         return bundle
     }
